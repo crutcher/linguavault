@@ -413,7 +413,7 @@ def query(
     print(
         " :: ".join(
             [
-                "Werdsonary",
+                "# Werdsonary",
                 "Define",
                 f'"{term_listing.term}"',
                 f"{term_listing.term_language}",
@@ -433,7 +433,7 @@ def query(
         )
         print()
         print(
-            f'** Sense: "{term_listing.term}", {sense.part_of_speech} : {sense.short_definition}'
+            f'## Sense: "{term_listing.term}", {sense.part_of_speech} : {sense.short_definition}'
         )
 
         phonetics = get_sense_phonetics(
@@ -444,7 +444,7 @@ def query(
             example_usage=sense_info.example_usage,
         )
         if not phonetics.empty():
-            print(f"* Pronounced: {phonetics}")
+            print(f"  * Pronounced: {phonetics}")
 
         usage = []
         if sense_info.term_context:
@@ -456,20 +456,20 @@ def query(
             f"formality={sense_info.formality}, "
             f"vulgarity={sense_info.vulgarity}"
         )
-        print("* Usage:", " : ".join(usage))
+        print("  * Usage:", " : ".join(usage))
 
         if sense_info.synonyms:
-            print(f"* Synonyms: {', '.join(repr(t) for t in sense_info.synonyms)}")
+            print(f"  * Synonyms: {', '.join(repr(t) for t in sense_info.synonyms)}")
         if sense_info.antonyms:
-            print(f"* Antonyms: {', '.join(repr(t) for t in sense_info.antonyms)}")
-        print(f'Example: "{sense_info.example_usage}"')
+            print(f"  * Antonyms: {', '.join(repr(t) for t in sense_info.antonyms)}")
+        print(f'  * Example: "{sense_info.example_usage}"')
         print()
         print(sense_info.long_definition.strip())
 
         if sense_info.synonyms:
             for syn in sense_info.synonyms:
                 print()
-                print(f'* Synonym: "{term_listing.term}" ~= "{syn}" ::')
+                print(f'### Synonym: "{term_listing.term}" ~= "{syn}" ::')
                 comp = get_synonym_comparison(
                     term=term_listing.term,
                     short_def=sense.short_definition,
@@ -482,7 +482,7 @@ def query(
         if sense_info.antonyms:
             for ant in sense_info.antonyms:
                 print()
-                print(f'* Antonym: "{term_listing.term}" vs "{ant}" ::')
+                print(f'### Antonym: "{term_listing.term}" vs "{ant}" ::')
                 comp = get_antonym_comparison(
                     term=term_listing.term,
                     short_def=sense.short_definition,
