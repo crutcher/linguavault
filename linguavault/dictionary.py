@@ -1,5 +1,4 @@
 import argparse
-import json
 import sys
 from dataclasses import dataclass
 from typing import Optional
@@ -202,36 +201,6 @@ def get_term_listing(
         raise ValueError(answer) from e
 
 
-def display_termlist(tlist: TermListing) -> None:
-    print(
-        f'"{tlist.term}" :: source={tlist.term_language} :: output={tlist.output_language}'
-    )
-    for sense in tlist.senses:
-        print()
-        parts = [sense.part_of_speech]
-        if sense.term_context:
-            parts.append(sense.term_context)
-        parts.append(sense.short_definition)
-
-        print(" : ".join(parts))
-
-
-def query_termlist(
-    term: str,
-    term_language: str = "English",
-    term_contexts: Optional[list[str]] = None,
-    output_language: str = "English",
-) -> tuple[TermListing, str]:
-    td, raw = get_term_listing(
-        term,
-        term_language=term_language,
-        term_contexts=term_contexts,
-        output_language=output_language,
-    )
-    display_termlist(td)
-    return td, raw
-
-
 SENSE_PREFIX = (
     COMMON_PREFIX
     + """
@@ -401,7 +370,7 @@ def get_antonym_comparison(
         f"Output Language: {output_language}",
     ]
 
-    return reblock(completion(SYNONYM_PREFIX, "\n".join(query)))
+    return reblock(completion(ANTONYM_PREFIX, "\n".join(query)))
 
 
 def query(

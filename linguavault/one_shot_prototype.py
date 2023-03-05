@@ -1,6 +1,5 @@
 import argparse
 import sys
-from dataclasses import field
 from typing import Optional
 
 import openai

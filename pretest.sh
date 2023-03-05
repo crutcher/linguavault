@@ -6,3 +6,4 @@ isort .
 black .
 mypy .
 
+vulture linguavault

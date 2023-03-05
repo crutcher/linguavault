@@ -31,8 +31,8 @@ def load_openai_secrets(
                 if sline
             )
 
-        openai.organization = secrets["OPENAI_ORGANIZATION"]
-        openai.api_key = secrets["OPENAI_API_KEY"]
+        openai.organization = secrets["OPENAI_ORGANIZATION"]  # noqa
+        openai.api_key = secrets["OPENAI_API_KEY"]  # noqa
 
 
 def completion(prefix: str, query: str) -> str:

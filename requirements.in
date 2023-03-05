@@ -23,6 +23,9 @@ ipython
 # python typing
 mypy
 
+# dead code
+vulture
+
 # Testing
 pytest
 pytest-cov
