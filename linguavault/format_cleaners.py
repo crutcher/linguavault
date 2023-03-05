@@ -1,11 +1,12 @@
 import json
+from typing import Any
 
 import json5
 
 
-def paranoid_json(source: str) -> str:
+def paranoid_json(source: str) -> dict[str, Any]:
     raw = source[source.find("{") : source.rfind("}") + 1]
-    return json.dumps(json5.loads(raw))
+    return json5.loads(raw)
 
 
 def reblock(text: str) -> str:

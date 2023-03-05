@@ -7,6 +7,12 @@ $ ./grind repo bootstrap
 
 Installs a python virtual environment in `.venv`
 
+Expects OpenAI keys in the environment.
+```
+OPENAI_ORGANIZATION=<ORG ID>
+OPENAI_API_KEY=<API KEY>
+```
+
 ## Werdsonary
 
 See [DEMO.md](DEMO.md)

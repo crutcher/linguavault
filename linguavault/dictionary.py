@@ -1,6 +1,7 @@
 import argparse
+import json
 import sys
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 import marshmallow_dataclass
@@ -196,7 +197,7 @@ def get_term_listing(
     answer = completion(DEFINE_PREFIX, "\n".join(query))
     try:
         schema = marshmallow_dataclass.class_schema(TermListing)()
-        return schema.loads(paranoid_json(answer)), answer
+        return schema.load(paranoid_json(answer)), answer
     except Exception as e:
         raise ValueError(answer) from e
 
@@ -310,7 +311,12 @@ def get_sense_definition(
     answer = completion(SENSE_PREFIX, "\n".join(query))
     try:
         schema = marshmallow_dataclass.class_schema(TermSenseDefinition)()
-        return schema.loads(paranoid_json(answer)), answer
+        data = paranoid_json(answer)
+        if not data.get("example_usage"):
+            data["example_usage"] = "N/A"
+        if not data.get("part_of_speech"):
+            data["part_of_speech"] = "unknown"
+        return schema.load(data), answer
     except Exception as e:
         raise ValueError(answer) from e
 
@@ -517,10 +523,12 @@ def main(argv):
 
     load_openai_secrets(args.secrets_file)
 
+    term_contexts = list(args.term_context or [])
+
     query(
         term=args.term,
         term_language=args.term_language,
-        term_contexts=args.term_context,
+        term_contexts=term_contexts,
         output_language=args.output_language,
     )
     print()
