@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+cd $WORKSPACE_ROOT_DIR
+
+source .venv/bin/activate
+
+if (( $# )) ; then
+  TARGETS=( $@ )
+else
+  TARGETS=( linguavault )
+fi
+
+echo "Code Quality Scans ..."
+
+dmypy run --timeout 1200 -- "${TARGETS[@]}"
+
+# does not like pytorch
+# pyre incremental

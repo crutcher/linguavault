@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Exit on error.
+set -e
+
+cd $WORKSPACE_ROOT_DIR
+
+$GRIND repo base_environment
+
+$GRIND repo psync
+

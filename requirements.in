@@ -1,0 +1,32 @@
+# Python
+pip-tools
+nbqa  # run python code tests on .ipynb
+autoflake
+black
+black[d]
+black_nbconvert  # for formatting .ipynb
+isort
+
+marshmallow
+marshmallow_dataclass
+
+jupyter
+
+# Python Strict
+overrides
+
+# ipython
+ipython
+
+# python typing
+mypy
+
+# Testing
+pytest
+pytest-cov
+pytest-testmon
+pytest-custom-exit-code  # --suppress-no-test-exit-code
+PyHamcrest
+testfixtures
+
+openai
