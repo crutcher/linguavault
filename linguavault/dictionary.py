@@ -284,9 +284,9 @@ class TermSenseDefinition:
     long_definition: str
     example_usage: str
     term_context: Optional[str] = None
-    keywords: list[str] = field(default_factory=list)
-    synonyms: list[str] = field(default_factory=list)
-    antonyms: list[str] = field(default_factory=list)
+    keywords: Optional[list[str]] = None
+    synonyms: Optional[list[str]] = None
+    antonyms: Optional[list[str]] = None
 
 
 def get_sense_definition(
@@ -413,6 +413,7 @@ def query(
     print(
         " :: ".join(
             [
+                "Werdsonary",
                 "Define",
                 f'"{term_listing.term}"',
                 f"{term_listing.term_language}",
@@ -443,7 +444,7 @@ def query(
             example_usage=sense_info.example_usage,
         )
         if not phonetics.empty():
-            print(f"Pronounced: {phonetics}")
+            print(f"* Pronounced: {phonetics}")
 
         usage = []
         if sense_info.term_context:
@@ -455,12 +456,12 @@ def query(
             f"formality={sense_info.formality}, "
             f"vulgarity={sense_info.vulgarity}"
         )
-        print("Usage:", " : ".join(usage))
+        print("* Usage:", " : ".join(usage))
 
         if sense_info.synonyms:
-            print(f"Synonyms: {', '.join(repr(t) for t in sense_info.synonyms)}")
+            print(f"* Synonyms: {', '.join(repr(t) for t in sense_info.synonyms)}")
         if sense_info.antonyms:
-            print(f"Antonyms: {', '.join(repr(t) for t in sense_info.antonyms)}")
+            print(f"* Antonyms: {', '.join(repr(t) for t in sense_info.antonyms)}")
         print(f'Example: "{sense_info.example_usage}"')
         print()
         print(sense_info.long_definition.strip())

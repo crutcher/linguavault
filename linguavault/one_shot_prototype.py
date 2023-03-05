@@ -79,9 +79,9 @@ class TermSenseDefinition:
     short_definition: str
     long_definition: str
     example_usage: str
-    keywords: list[str] = field(default_factory=list)  # type: ignore
-    synonyms: list[str] = field(default_factory=list)  # type: ignore
-    antonyms: list[str] = field(default_factory=list)  # type: ignore
+    keywords: Optional[list[str]] = None
+    synonyms: Optional[list[str]] = None
+    antonyms: Optional[list[str]] = None
 
 
 @dataclass
@@ -132,7 +132,7 @@ def display_term(term: TermDefinition) -> None:
 
     for sense in term.senses:
         print()
-        print(f"{sense.part_of_speech} : {', '.join(sense.keywords)}")
+        print(f"{sense.part_of_speech} : {', '.join(sense.keywords or [])}")
         print(sense.short_definition)
         print(
             f"Usage: popularity={sense.popularity}, formality={sense.formality}, vulgarity={sense.vulgarity}"
