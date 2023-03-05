@@ -420,7 +420,7 @@ def query(
             ]
         )
     )
-    print(f"Dictionary Language: {term_listing.output_language}")
+    print(f"  * Dictionary Language: {term_listing.output_language}")
 
     for sense in term_listing.senses:
         sense_info, _raw = get_sense_definition(
@@ -433,7 +433,7 @@ def query(
         )
         print()
         print(
-            f'## Sense: "{term_listing.term}", {sense.part_of_speech} : {sense.short_definition}'
+            f'## Sense: "{term_listing.term}", {sense.part_of_speech.lower()} : {sense.short_definition}'
         )
 
         phonetics = get_sense_phonetics(
@@ -469,7 +469,7 @@ def query(
         if sense_info.synonyms:
             for syn in sense_info.synonyms:
                 print()
-                print(f'### Synonym: "{term_listing.term}" ~= "{syn}" ::')
+                print(f'### Synonym: "{term_listing.term}" ~= "{syn}"')
                 comp = get_synonym_comparison(
                     term=term_listing.term,
                     short_def=sense.short_definition,
@@ -482,7 +482,7 @@ def query(
         if sense_info.antonyms:
             for ant in sense_info.antonyms:
                 print()
-                print(f'### Antonym: "{term_listing.term}" vs "{ant}" ::')
+                print(f'### Antonym: "{term_listing.term}" vs "{ant}"')
                 comp = get_antonym_comparison(
                     term=term_listing.term,
                     short_def=sense.short_definition,
