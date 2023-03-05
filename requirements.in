@@ -7,6 +7,8 @@ black[d]
 black_nbconvert  # for formatting .ipynb
 isort
 
+json5
+
 marshmallow
 marshmallow_dataclass
 

@@ -1,4 +1,5 @@
 import os
+from typing import Optional
 
 import openai
 
@@ -7,13 +8,18 @@ OPENAI_SECRETS_SEARCH_PATHS: list[str] = [
 ]
 
 
-def load_openai_secrets(secrets_file: str = None) -> None:
+def load_openai_secrets(secrets_file: Optional[str] = None) -> None:
     """Load secrets into openai client."""
     if secrets_file is None:
         for path in OPENAI_SECRETS_SEARCH_PATHS:
             path = os.path.expanduser(path)
             if os.path.exists(path):
                 secrets_file = path
+                break
+        else:
+            raise AssertionError(
+                f"Could not find secrets file at any of {OPENAI_SECRETS_SEARCH_PATHS}"
+            )
 
     path = os.path.expanduser(secrets_file)
 
