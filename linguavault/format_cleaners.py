@@ -12,7 +12,6 @@ def paranoid_json(source: str) -> dict[str, Any]:
 def reblock(text: str) -> str:
     lines: list[str] = []
 
-    in_block = False
     for line in text.strip().splitlines():
         line = line.strip()
         previous_line = lines[-1] if lines else None
