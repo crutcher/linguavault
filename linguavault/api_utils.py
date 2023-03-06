@@ -8,7 +8,6 @@ OPENAI_SECRETS_SEARCH_PATHS: list[str] = [
     "~/.openai_keys",
 ]
 
-
 def load_openai_secrets(
     secrets_file: Optional[str] = None,
 ) -> None:
@@ -35,7 +34,10 @@ def load_openai_secrets(
         openai.api_key = secrets["OPENAI_API_KEY"]  # noqa
 
 
-def completion(prefix: str, query: str) -> str:
+def _chat_completion(
+    prefix: str,
+    query: str,
+) -> str:
     result = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -44,3 +46,26 @@ def completion(prefix: str, query: str) -> str:
         ],
     )
     return result["choices"][0]["message"]["content"]
+
+def _davinci_completion(
+    prefix: str,
+    query: str,
+) -> str:
+    p=f"{prefix}\nInput:\n{query}\n\nResult:\n"
+    result = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=p,
+	max_tokens=4096 - len(p),
+    )
+    return result["choices"][0]["text"]
+
+def completion(
+    prefix: str,
+    query: str,
+    *,
+    _davinci: bool = False,
+) -> str:
+    if _davinci:
+    	return _davinci_completion(prefix=prefix, query=query)
+    else:
+    	return _chat_completion(prefix=prefix, query=query)
