@@ -281,6 +281,12 @@ def get_sense_definition(
     try:
         schema = marshmallow_dataclass.class_schema(TermSenseDefinition)()
         data = paranoid_json(answer)
+        if not data.get("popularity"):
+            data["popularity"] = 0.0
+        if not data.get("formality"):
+            data["formality"] = 0.0
+        if not data.get("vulgarity"):
+            data["vulgarity"] = 0.0
         if not data.get("example_usage"):
             data["example_usage"] = "N/A"
         if not data.get("part_of_speech"):
